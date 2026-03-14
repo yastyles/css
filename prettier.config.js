@@ -1,5 +1,3 @@
-import type { Config } from 'prettier'
-
 const QS = '([?].*)?'
 const STYLE_EXT = 'css|less|sass|scss|styl|stylus|pcss|postcss|sss'
 const IMAGE_EXT = 'apng|bmp|png|jpe?g|jfif|pjpeg|pjp|gif|svg|ico|webp|avif|cur|jxl'
@@ -59,4 +57,4 @@ export default {
     STYLE_RE,
   ],
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
-} satisfies Config
+}
