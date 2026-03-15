@@ -15,6 +15,20 @@ export type HasVariants<S> = S extends { variants?: infer V }
     : false
   : false
 
+type VariantNames<S> = S extends { variants?: infer V }
+  ? V extends object
+    ? keyof V
+    : never
+  : never
+
+type VariantValues<S, A extends keyof any> = S extends { variants?: infer V }
+  ? V extends Record<A, infer Axis>
+    ? Axis extends object
+      ? keyof Axis
+      : never
+    : never
+  : never
+
 export type ThemeConfig = {
   props?: Partial<Record<keyof CSSProperties, Record<string, string>>>
 }
@@ -65,6 +79,14 @@ export type UIStateKey =
   | ':empty'
   | ':default'
 
+export type VariantValue<B> = {
+  [value: string]: B
+}
+
+export type VariantsMap<B> = {
+  [variant: string]: VariantValue<B>
+}
+
 export type StyleBlockWithTheme<C extends ThemeConfig> = {
   [K in keyof CSSProperties]?: CSSProperties[K] | ThemePropKeys<C, K>
 } & {
@@ -73,16 +95,23 @@ export type StyleBlockWithTheme<C extends ThemeConfig> = {
   [K in UIStateKey]?: StyleBlockWithTheme<C>
 } & {
   [K in SelectorKey]?: StyleBlockWithTheme<C>
+} & {
+  variants?: VariantsMap<StyleBlockWithTheme<C>>
 }
 
 export type StyleDefinitionWithTheme<C extends ThemeConfig> = StyleBlockWithTheme<C>
 
+export type StylePropsVariant<S> = {
+  [A in VariantNames<S>]?: VariantValues<S, A>
+}
+
 export type StyleString = string
 
-export type StyleReturnType = StyleString
+export type StyleReturnType<S> =
+  HasVariants<S> extends true ? (props: StylePropsVariant<S>) => StyleString : StyleString
 
 export type StyleFunction<C extends ThemeConfig> = <S extends StyleDefinitionWithTheme<C>>(
   definition: S,
-) => StyleReturnType
+) => StyleReturnType<S>
 
 export type CreateTheme = <C extends ThemeConfig>(config: C) => StyleFunction<C>

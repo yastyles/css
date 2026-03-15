@@ -5,6 +5,9 @@ const css = createTheme({
     color: {
       primary: '#000',
     },
+    font: {
+      headingL: '24px Arial, sans-serif',
+    },
   },
 })
 
@@ -20,4 +23,17 @@ const button = css({
   },
 })
 
+const text = css({
+  color: 'primary',
+
+  variants: {
+    variant: {
+      heading: {
+        font: 'headingL',
+      },
+    },
+  },
+})
+
 console.log(button)
+console.log(text({ variant: 'heading' }))
