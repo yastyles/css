@@ -19,6 +19,16 @@ export type ThemeConfig = {
   props?: Partial<Record<keyof CSSProperties, Record<string, string>>>
 }
 
+export type ThemePropKeys<C extends ThemeConfig, K extends keyof CSSProperties> = C extends {
+  props?: infer P
+}
+  ? P extends Record<K, infer V>
+    ? V extends Record<string, string>
+      ? keyof V & string
+      : never
+    : never
+  : never
+
 export type SelectorKey = `&${string}`
 
 export type PseudoElementKey =
@@ -56,7 +66,7 @@ export type UIStateKey =
   | ':default'
 
 export type StyleBlockWithTheme<C extends ThemeConfig> = {
-  [K in keyof CSSProperties]?: CSSProperties[K]
+  [K in keyof CSSProperties]?: CSSProperties[K] | ThemePropKeys<C, K>
 } & {
   [K in PseudoElementKey]?: StyleBlockWithTheme<C>
 } & {
