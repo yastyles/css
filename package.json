@@ -4,7 +4,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "lint:code": "eslint ."
+    "lint:code": "eslint .",
+    "unit": "vitest"
   },
   "dependencies": {
     "csstype": "3.2.3"
@@ -22,7 +23,8 @@
     "jiti": "2.6.1",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.57.0"
+    "typescript-eslint": "8.57.0",
+    "vitest": "4.1.0"
   },
   "packageManager": "pnpm@10.18.3"
 }
