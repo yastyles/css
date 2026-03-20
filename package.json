@@ -4,14 +4,17 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "build": "rollup -c rollup.config.ts --configPlugin typescript",
     "lint:code": "eslint .",
     "unit": "vitest"
   },
   "dependencies": {
-    "csstype": "3.2.3"
+    "csstype": "3.2.3",
+    "tslib": "2.8.1"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.1",
+    "@rollup/plugin-typescript": "12.3.0",
     "@types/node": "25.5.0",
     "@typescript-eslint/parser": "8.57.0",
     "@typescript-eslint/utils": "8.57.0",
@@ -22,6 +25,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "jiti": "2.6.1",
     "prettier": "3.8.1",
+    "rollup": "4.59.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.57.0",
     "vitest": "4.1.0"
